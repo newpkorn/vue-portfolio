@@ -4,7 +4,7 @@
             <h2 class="text-lg mb-4 font-bold text-primary md:text-2xl md:mb-5">Open to work</h2>
             <BaseLink
                 size="large"
-                to="mailto: hello@newpk.io"
+                to="mailto: pakorn.soikham@gmail.com"
                 target="blank"
                 class="inline-block"
             >

@@ -1,9 +1,9 @@
-// nuxt.config.js
+// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
   runtimeConfig: {
     public: {
-      baseApiUrl: process.env.NUXT_PUBLIC_BASE_API_URL,
+      baseApiUrl: '',
     },
   },
   build: {
@@ -27,5 +27,5 @@ export default defineNuxtConfig({
   ],
   carousel: {
     prefix: 'Base'
-  },
+  }
 })

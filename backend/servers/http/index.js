@@ -17,9 +17,9 @@ export default ({
 
     app.use(express.json());
     app.use(cors(config.http.cors));
-    app.use('/v1/auth', auth.router());
-    app.use('/v1/profile', profile.router());
-    app.use('/v1/portfolios', portfolio.router());
+    app.use('/auth', auth.router());
+    app.use('/profile', profile.router());
+    app.use('/portfolios', portfolio.router());
     app.use(errorHandler);
 
     function run() {

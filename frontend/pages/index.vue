@@ -1,33 +1,31 @@
 <script setup>
 import { useAuthStore } from '@/stores/auth';
 import { useProfileStore } from '@/stores/profile';
-import { ref, onMounted } from 'vue';
 
 const authStore = useAuthStore();
 const store = useProfileStore();
 
 useHead({
-    title: 'Pichet Itngam\'s portfolios',
+    title: 'New Pakorn\'s portfolios',
     meta: [
-        { name: 'description', content: 'Pichet Itngam\'s portfolios.' }
+        { name: 'description', content: 'New Pakorn\'s portfolios' },
     ],
-})
+});
 
 const limit = 2;
 const currentPortfoliosPage = ref(1);
 
-onMounted(async () => {
-    await store.getProfile();
-    await store.getPortfolios(currentPortfoliosPage.value, limit);
-});
+await store.getProfile();
+await store.getPortfolios(currentPortfoliosPage.value, limit);
 
 const onPortfoliosMore = async () => {
     const nextPage = currentPortfoliosPage.value + 1;
+
     await store.getPortfolios(nextPage, limit);
+
     currentPortfoliosPage.value = nextPage;
 }
 </script>
-
 
 <template>
     <section class="mb-10">
@@ -48,6 +46,7 @@ const onPortfoliosMore = async () => {
             </template>
         </BaseEditable>
     </section>
+    
     <section class="mb-10">
         <BaseEditable :edit-mode="store.experiencesEditMode">
             <template #view>
@@ -69,6 +68,7 @@ const onPortfoliosMore = async () => {
             </template>
         </BaseEditable>
     </section>
+
     <section class="mb-10">
         <PortfolioList
             :portfolios="store.portfolios"
