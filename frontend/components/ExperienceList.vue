@@ -1,5 +1,8 @@
 <script setup>
-defineProps({
+import { defineProps, defineEmits } from 'vue';
+
+// กำหนด props
+const { experiences, canEdit, hasMoreExperiences, isExperienceVisible } = defineProps({
     experiences: Array,
     canEdit: Boolean,
     hasMoreExperiences: Boolean,
@@ -21,23 +24,15 @@ defineEmits(['edit', 'more']);
             Edit
         </BaseButton>
     </h2>
-    <ol
-        v-if="experiences.length > 0"
-        class="space-y-6"
-    >
-        <li
-            v-for="(experience, index) in experiences"
-            :key="experience.id"
-        >
+    <ol v-if="experiences.length > 0" class="space-y-6">
+        <li v-for="(experience, index) in experiences" :key="experience.id">
+            <!-- ตรวจสอบว่า isExperienceVisible ส่งค่ามาหรือไม่ -->
             <div v-if="isExperienceVisible(index)">
                 <ExperienceItem :experience="experience" />
             </div>
         </li>
     </ol>
-    <span
-        v-else
-        class="text-grey"
-    >
+    <span v-else class="text-grey">
         None
     </span>
     <BaseButton
