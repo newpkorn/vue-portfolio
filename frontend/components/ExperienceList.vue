@@ -2,8 +2,11 @@
 import { defineProps, defineEmits } from 'vue';
 
 // กำหนด props
-const { experiences, canEdit, hasMoreExperiences, isExperienceVisible } = defineProps({
-    experiences: Array,
+const { experiences = [], canEdit, hasMoreExperiences, isExperienceVisible } = defineProps({
+    experiences: {
+        type: Array,
+        default: () => [] // กำหนดค่า default เป็น array ว่างหากไม่ส่งค่า
+    },
     canEdit: Boolean,
     hasMoreExperiences: Boolean,
     isExperienceVisible: Function,
@@ -24,9 +27,9 @@ defineEmits(['edit', 'more']);
             Edit
         </BaseButton>
     </h2>
-    <ol v-if="experiences.length > 0" class="space-y-6">
+    <!-- ตรวจสอบว่า experiences ไม่ใช่ null หรือ array ว่าง -->
+    <ol v-if="experiences && experiences.length > 0" class="space-y-6">
         <li v-for="(experience, index) in experiences" :key="experience.id">
-            <!-- ตรวจสอบว่า isExperienceVisible ส่งค่ามาหรือไม่ -->
             <div v-if="isExperienceVisible(index)">
                 <ExperienceItem :experience="experience" />
             </div>
