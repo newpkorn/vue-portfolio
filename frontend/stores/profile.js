@@ -25,12 +25,12 @@ export const useProfileStore = defineStore('profile', () => {
             if (status == 'error') {
                 throw new Error(error);
             }
-
-            profile.value = response.value;
+    
+            profile.value = response.data;
         } catch (error) {
             throw new Error(error);
         }
-    }
+    }    
 
     async function getPortfolios(page, limit) {
         isGettingPortfolios.value = true;
