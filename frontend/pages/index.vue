@@ -15,8 +15,12 @@ useHead({
 const limit = 2;
 const currentPortfoliosPage = ref(1);
 
-await store.getProfile();
-await store.getPortfolios(currentPortfoliosPage.value, limit);
+try {
+    await store.getProfile();
+    await store.getPortfolios(currentPortfoliosPage.value, limit);
+} catch (error) {
+    console.error('Error fetching data:', error);
+}
 
 const onPortfoliosMore = async () => {
     const nextPage = currentPortfoliosPage.value + 1;
@@ -24,58 +28,58 @@ const onPortfoliosMore = async () => {
     await store.getPortfolios(nextPage, limit);
 
     currentPortfoliosPage.value = nextPage;
-}
+};
 </script>
 
 <template>
     <section class="mb-10">
         <BaseEditable :edit-mode="store.skillsEditMode">
             <template #view>
-                <SkillList
-                    :skills="store.profile.overallSkills"
+                <SkillList 
+                    :skills="store.profile?.overallSkills || []" 
                     :can-edit="authStore.canEdit"
-                    @edit="store.enterSkillsEditMode"
+                    @edit="store.enterSkillsEditMode" 
                 />
             </template>
             <template #edit>
-                <SkillForm
-                    :skills="store.profile.overallSkills"
+                <SkillForm 
+                    :skills="store.profile.overallSkills" 
                     @cancel="store.enterSkillsViewMode"
-                    @submit="store.saveSkills"
-                />
-            </template>
-        </BaseEditable>
-    </section>
-    
-    <section class="mb-10">
-        <BaseEditable :edit-mode="store.experiencesEditMode">
-            <template #view>
-                <ExperienceList
-                    :experiences="store.profile.experiences"
-                    :can-edit="authStore.canEdit"
-                    :has-more-experiences="store.hasMoreExperiences"
-                    :is-experience-visible="store.isExperienceVisible"
-                    @edit="store.enterExperiencesEditMode"
-                    @more="store.increaseVisibleExperences(8)"
-                />
-            </template>
-            <template #edit>
-                <ExperienceForm
-                    :experiences="store.profile.experiences"
-                    @cancel="store.enterExperiencesViewMode"
-                    @submit="store.saveExperiences"
+                    @submit="store.saveSkills" 
                 />
             </template>
         </BaseEditable>
     </section>
 
     <section class="mb-10">
-        <PortfolioList
-            :portfolios="store.portfolios"
+        <BaseEditable :edit-mode="store.experiencesEditMode">
+            <template #view>
+                <ExperienceList 
+                    :experiences="store.profile?.experiences || []" 
+                    :can-edit="authStore.canEdit"
+                    :has-more-experiences="store.hasMoreExperiences" 
+                    :is-experience-visible="store.isExperienceVisible"
+                    @edit="store.enterExperiencesEditMode" 
+                    @more="store.increaseVisibleExperences(8)" 
+                />
+            </template>
+            <template #edit>
+                <ExperienceForm 
+                    :experiences="store.profile.experiences" 
+                    @cancel="store.enterExperiencesViewMode"
+                    @submit="store.saveExperiences" 
+                />
+            </template>
+        </BaseEditable>
+    </section>
+
+    <section class="mb-10">
+        <PortfolioList 
+            :portfolios="store.portfolios || []" 
             :can-edit="authStore.canEdit"
-            :is-getting-portfolios="store.isGettingPortfolios"
+            :is-getting-portfolios="store.isGettingPortfolios" 
             :has-more-portfolios="store.hasMorePortfolios"
-            @more="onPortfoliosMore"
+            @more="onPortfoliosMore" 
         />
     </section>
 </template>
