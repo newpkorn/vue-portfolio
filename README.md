@@ -1,7 +1,7 @@
 # Portfolio Website
 
 Frontend: https://fullstack-course-murex.vercel.app/
-Backend: https://fullstack-course-backend.vercel.app/
+Backend: https://portfolio-backend-swart-phi.vercel.app/
 
 ## How to use this repo
 
