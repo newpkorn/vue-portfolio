@@ -11,7 +11,7 @@
             </div>
             <div>
                 <div class="font-bold text-xl md:text-center md:text-2xl">New Pakorn</div>
-                <p class="text-base md:text-center md:text-xl">Passionate self-taught learner</p>
+                <p class="text-base md:text-center md:text-x">Seeking New Opportunities: A Passionate Web Developer, Could Engineer and Application Support, Ready for a Career Transition.</p>
                 <div class="pt-2 flex flex-wrap gap-2 md:justify-center md:mt-2">
                     <BaseLink
                         size="small"
