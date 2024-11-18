@@ -65,11 +65,11 @@ const onPortfoliosMore = async () => {
             </template>
             <template #edit>
                 <ExperienceForm 
-                    :experiences="store.profile.experiences" 
+                    :experiences="store.profile?.experiences || []" 
                     @cancel="store.enterExperiencesViewMode"
                     @submit="store.saveExperiences" 
                 />
-            </template>
+</template>
         </BaseEditable>
     </section>
 
