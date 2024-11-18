@@ -19,6 +19,19 @@ export const useProfileStore = defineStore('profile', () => {
         return visibleExperiencesNumber.value < profile.value.experiences.length;
     });
 
+    // async function getProfile() {
+    //     try {
+    //         const { data: response, error, status } = await getProfileAPI();
+    //         if (status == 'error') {
+    //             throw new Error(error);
+    //         }
+
+    //         profile.value = response.value;
+    //     } catch (error) {
+    //         throw new Error(error);
+    //     }
+    // }
+
     async function getProfile() {
         try {
             const { data: response, error, status } = await getProfileAPI();
@@ -26,11 +39,14 @@ export const useProfileStore = defineStore('profile', () => {
                 throw new Error(error);
             }
     
-            profile.value = response.data;
+            profile.value = {
+                overallSkills: response.data.overallSkills || [],
+                experiences: response.data.experiences || [],
+            };
         } catch (error) {
             throw new Error(error);
         }
-    }    
+    }
 
     async function getPortfolios(page, limit) {
         isGettingPortfolios.value = true;
