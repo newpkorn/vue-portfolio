@@ -1,11 +1,11 @@
 <script setup>
 import { defineProps, defineEmits } from 'vue';
 
-// กำหนด props
+// กำหนด props ให้มี default ค่าหากไม่ส่งมา
 const { experiences = [], canEdit, hasMoreExperiences, isExperienceVisible } = defineProps({
     experiences: {
         type: Array,
-        default: () => [] // กำหนดค่า default เป็น array ว่างหากไม่ส่งค่า
+        default: () => [] // ค่า default ให้เป็น array ว่าง
     },
     canEdit: Boolean,
     hasMoreExperiences: Boolean,
@@ -27,8 +27,8 @@ defineEmits(['edit', 'more']);
             Edit
         </BaseButton>
     </h2>
-    <!-- ตรวจสอบว่า experiences ไม่ใช่ null หรือ array ว่าง -->
-    <ol v-if="experiences && experiences.length > 0" class="space-y-6">
+    <!-- ตรวจสอบว่า experiences มีข้อมูล และไม่เป็น null -->
+    <ol v-if="Array.isArray(experiences) && experiences.length > 0" class="space-y-6">
         <li v-for="(experience, index) in experiences" :key="experience.id">
             <div v-if="isExperienceVisible(index)">
                 <ExperienceItem :experience="experience" />
